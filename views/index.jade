@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to our test
+
+    // Wrapper
+    #wrapper
+
+        // USER INFO
+        #userInfo
+            h2 User Info
+            p
+                strong Name:
+                |  <span id='userInfoName'>#{clickedUser.name}</span>
+                br
+                strong Age:
+                |  <span id='userInfoAge'>#{clickedUser.age}</span>
+                br
+                strong Gender:
+                |  <span id='userInfoGender'>#{clickedUser.gender}</span>
+                br
+                strong Location:
+                |  <span id='userInfoLocation'>#{clickedUser.location}</span>
+        // /USER INFO
+
+        // USER LIST
+        h2 User List
+        #userList
+            table
+                thead
+                    th UserName
+                    th Email
+                    th Delete?
+                tbody
+                    each user in users
+                        tr
+                            td
+                                a(href="/?name=#{user.fullname}&age=#{user.age}&gender=#{user.gender}&location=#{user.location}") #{user.username}
+                            td= user.email
+                            td
+                                a(href="usersJson/deleteuser/#{user._id}") delete
+        // /USER LIST
+
+        // ADD USER
+        h2 Add User
+        #addUser
+            form(method="POST", action="/usersJson/adduser")
+                input#inputUserName(type='text', placeholder='Username')
+                input#inputUserEmail(type='text', placeholder='Email')
+                br
+                input#inputUserFullname(type='text', placeholder='Full Name')
+                input#inputUserAge(type='text', placeholder='Age')
+                br
+                input#inputUserLocation(type='text', placeholder='Location')
+                input#inputUserGender(type='text', placeholder='gender')
+                br
+                button#btnAddUser(type='submit') Add User
+        // /ADD USER
+
+    // /WRAPPER
